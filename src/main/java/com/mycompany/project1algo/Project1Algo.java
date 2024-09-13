@@ -5,6 +5,7 @@
 package com.mycompany.project1algo;
 
 import java.util.Random;
+import java.util.Arrays;
 
 /**
  *
@@ -12,15 +13,31 @@ import java.util.Random;
  */
 public class Project1Algo {
 
-    public static void main(String[] args) {
-        int size = 10000;
-        int[] array = new int[size];
+    // function to generate random arrays
+    private static int[] generateArray(int size) {
         Random rand = new Random();
-
-        // generate random int from 0-100000
+        int[] array = new int[size];
+        
+        // generate random int from 0-19
         for (int i = 0; i < size; i++) {
-            array[i] = rand.nextInt(100000);
+            array[i] = rand.nextInt(20);
         }
+        return array;
+    }
+
+    public static void main(String[] args) {
+        
+
+        // test - insertion sort random data
+        int[] arraytest = generateArray(20);
+        System.out.println("unsorted: " + Arrays.toString(arraytest));
+        long startTime = System.nanoTime();
+        InsertionSort.sort(arraytest);
+        long endTime = System.nanoTime();
+        System.out.println("sorted: " + Arrays.toString(arraytest));
+        long insertionSortTime = endTime - startTime;
+        System.out.println("time (ns): " + insertionSortTime);
+
 
         // measure time for quicksort 1 pointer
         // measure time for quicksort 2 pointer
