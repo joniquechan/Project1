@@ -12,7 +12,7 @@ import java.util.Arrays;
  * @author User
  */
 public class Project1Algo {
-    // testing
+
     // function to generate random arrays
     private static int[] generateArray(int size) {
         Random rand = new Random();
@@ -20,15 +20,36 @@ public class Project1Algo {
         
         // generate random int from 0-19
         for (int i = 0; i < size; i++) {
-            array[i] = rand.nextInt(20);
+            array[i] = rand.nextInt(size);
         }
         return array;
+    }
+    
+    private static boolean checkSorted(int[] arr){
+        boolean sorted = true;
+        int prev = arr[0];
+        for(int i = 1; i < arr.length; i++){
+            if(prev > arr[i]){
+                sorted = false;
+                break;
+            }
+            prev = arr[i];
+        }
+        
+        return sorted;
     }
 
     public static void main(String[] args) {
         
+        Graph g = new Graph();
+        /*int[] arraytest1 = generateArray(20);
+        System.out.println("unsorted: " + Arrays.toString(arraytest1));
+        QuickSort.quickSort(arraytest1, 3, 1);
+        System.out.println("sorted: " + Arrays.toString(arraytest1));
+        System.out.println("sorted: " + checkSorted(arraytest1));*/
+        
 
-        // test - insertion sort random data
+        /*// test - insertion sort random data
         int[] arraytest = generateArray(20);
         System.out.println("unsorted: " + Arrays.toString(arraytest));
         long startTime = System.nanoTime();
@@ -36,7 +57,7 @@ public class Project1Algo {
         long endTime = System.nanoTime();
         System.out.println("sorted: " + Arrays.toString(arraytest));
         long insertionSortTime = endTime - startTime;
-        System.out.println("time (ns): " + insertionSortTime);
+        System.out.println("time (ns): " + insertionSortTime);*/
 
 
         // measure time for quicksort 1 pointer

@@ -1,5 +1,6 @@
 package com.mycompany.project1algo;
 
+//what up
 public class QuickSort {
     private static int onePointerPartition(int[] arr, int low, int high, int pivot) {
         int pivotVal = pivotType(arr, low, high, pivot);
@@ -18,12 +19,56 @@ public class QuickSort {
     }
 
     private static int twoPointerPartition(int[] arr, int low, int high, int pivot) {
-        // find pivot val
+        // find pivot val and pivot index
+        int pivotVal = pivotType(arr, low, high, pivot);
+        int pivotIndex = pivotIndex(arr, low, high, pivot);
+        // move pivot to the end of the array
+        swap(arr, pivotIndex, high);
         // intialize two pointers (left and right)
+        int lower = low;
+        int upper = high - 1;
         // lopp until pointers meet
-        // move left pointer right until < pivot
-        // move right pointer left until > pivot
-        // swap elements
+        while(lower <= upper){
+            //move upper down until < pivot
+            while(lower <= upper && arr[upper] >= pivotVal){
+                upper--;
+            }
+            //move lower pointer up until > pivot
+            while(lower <= upper && arr[lower] <= pivotVal){
+                lower++;
+            }
+            //swap elements
+            if(lower < upper){
+                swap(arr, lower, upper);
+            }
+        }       
+        //move pivot back to the middle of array
+        swap(arr, lower, high);
+        return lower;
+    }
+    
+    private static int pivotIndex(int[] arr, int low, int high, int pivotType){
+        switch (pivotType) {
+            // median
+            case 1:
+                return (low + high) / 2;
+            // median of three
+            case 2:
+                int mid = (low + high) / 2;
+                int a = arr[low], b = arr[mid], c = arr[high];
+                if ((a > b) == (a < c)) {
+                    return low;
+                }
+                else if ((b > a) == (b < c)) {
+                    return mid;
+                }
+                else {
+                    return high;
+                }
+            // last element
+            default:
+                return high;
+        }
     }
 
     private static int pivotType(int[] arr, int low, int high, int pivotType) {
@@ -70,6 +115,8 @@ public class QuickSort {
         else if (low < high && partition == 2) {
             // get pivot 
             pivotIndex = twoPointerPartition(arr, low, high, pivot);
+            quickSort(arr, low, pivotIndex - 1, pivot, partition);
+            quickSort(arr, pivotIndex + 1, high, pivot, partition);
         }
     }
 
