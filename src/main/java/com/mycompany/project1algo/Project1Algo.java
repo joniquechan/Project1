@@ -12,7 +12,7 @@ import java.util.Arrays;
  * @author User
  */
 public class Project1Algo {
-
+    // testing
     // function to generate random arrays
     private static int[] generateArray(int size) {
         Random rand = new Random();
