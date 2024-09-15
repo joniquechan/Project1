@@ -16,7 +16,7 @@ public class Graph {
     public Graph(){
         
         try{
-            createCSV(graphInsertion());
+            createCSV(graphQuickSort(1000000, 3, 1));
         }
         catch(Exception e){
             
@@ -36,24 +36,38 @@ public class Graph {
         return array;
     }
     
-    private static String[] graphInsertion(){
-        String[] list = new String[10000];
-        for(int i = 1; i <= 10000; i++){
+    private static String[] graphInsertion(int size){
+        String[] list = new String[size];
+        for(int i = 1; i <= size; i++){
             int[] arraytest = generateArray(i);;
             long startTime = System.nanoTime();
-            QuickSort.quickSort(arraytest, 3, 1);
+            InsertionSort.sort(arraytest);
             long endTime = System.nanoTime();
             list[i - 1] = Long.toString(endTime - startTime);
+        }
+        return list;
+    }
+    
+    private static String[] graphQuickSort(int size, int pivot, int partition){
+        String[] list = new String[size/1000];
+        int index = 0;
+        for(int i = 1; i <= size; i+= 1000){
+            int[] arraytest = generateArray(i);;
+            long startTime = System.nanoTime();
+            QuickSort.quickSort(arraytest, pivot, partition);
+            long endTime = System.nanoTime();
+            list[index] = Long.toString(endTime - startTime);
+            index++;
         }
         return list;
     }
  
     
     public static void createCSV(String[] list) throws IOException {
-            FileWriter writer = new FileWriter("C:/Users/ronie/OneDrive/Documents/Cedarville/Fall-2024/CS-3410/Project 1/csv1.csv");
+            FileWriter writer = new FileWriter("C:/Users/ronie/OneDrive/Documents/Cedarville/Fall-2024/CS-3410/Project 1/csv2.csv");
             BufferedWriter bw = new BufferedWriter(writer);
             for(int i = 1; i <= list.length; i++){
-                bw.write(i + ", " + list[i - 1]);   
+                bw.write(i*1000 + ", " + list[i - 1]);   
                 bw.newLine();
             }
             bw.close();
