@@ -15,11 +15,11 @@ public class Graph {
     
     public Graph(){
         
-        try{
-            createCSV(graphQuickSort(1000000, 3, 1));
+        try {
+            createCSV(graphQuickSort(1000000, 3, 2));
         }
-        catch(Exception e){
-            
+        catch (Exception e) {
+            e.printStackTrace();
         }
     }
     
@@ -32,6 +32,22 @@ public class Graph {
         // generate random int from 0-19
         for (int i = 0; i < size; i++) {
             array[i] = rand.nextInt(size);
+        }
+        return array;
+    }
+
+    private static int[] generateForwardSorted(int size) {
+        int[] array = new int[size];
+        for (int i = 0; i < size; i++) {
+            array[i] = i;
+        }
+        return array;
+    }
+
+    private static int[] generateReverseSorted(int size) {
+        int[] array = new int[size];
+        for (int i = 0; i < size; i++) {
+            array[i] = size - i;
         }
         return array;
     }
@@ -64,7 +80,7 @@ public class Graph {
  
     
     public static void createCSV(String[] list) throws IOException {
-            FileWriter writer = new FileWriter("C:/Users/ronie/OneDrive/Documents/Cedarville/Fall-2024/CS-3410/Project 1/csv2.csv");
+            FileWriter writer = new FileWriter("data.csv");
             BufferedWriter bw = new BufferedWriter(writer);
             for(int i = 1; i <= list.length; i++){
                 bw.write(i*1000 + ", " + list[i - 1]);   
