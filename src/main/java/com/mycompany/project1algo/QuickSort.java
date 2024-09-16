@@ -56,15 +56,17 @@ public class QuickSort {
             case 2:
                 int mid = (low + high) / 2;
                 int a = arr[low], b = arr[mid], c = arr[high];
-                if ((a > b) == (a < c)) {
+                int median = Math.max(Math.min(a,b), Math.min(Math.max(a,b),c));
+                if(a == median){
                     return low;
                 }
-                else if ((b > a) == (b < c)) {
+                else if(b == median){
                     return mid;
                 }
-                else {
+                else{
                     return high;
                 }
+                     
             // last element
             default:
                 return high;
@@ -80,15 +82,7 @@ public class QuickSort {
             case 2:
                 int mid = (low + high) / 2;
                 int a = arr[low], b = arr[mid], c = arr[high];
-                if ((a > b) == (a < c)) {
-                    return a;
-                }
-                else if ((b > a) == (b < c)) {
-                    return b;
-                }
-                else {
-                    return c;
-                }
+                return Math.max(Math.min(a,b), Math.min(Math.max(a,b),c));
             // last element
             default:
                 return arr[high];
