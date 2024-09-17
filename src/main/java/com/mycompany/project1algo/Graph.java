@@ -152,32 +152,76 @@ public class Graph {
     
     //Runs quick sort based on the range of array sizes you want and amount of 
     //runs you want to do to smooth the graph. Also sorts presorted arrays.
-    public static void graphQuickSort(int size, int pivot, int partition, int runs, int step, boolean sorted){
+    public static void graphQuickSort(int size, int partition, int runs, int step){
         ArrayList<String[]> list = new ArrayList();
         for(int i = 1; i <= size; i+= step){
-            int random = 0;
-            int forward = 0;
-            int reverse = 0;
+            int random0 = 0;
+            int forward0 = 0;
+            int reverse0 = 0;
+            int random1 = 0;
+            int forward1 = 0;
+            int reverse1 = 0;
+            int random2 = 0;
+            int forward2 = 0;
+            int reverse2 = 0;
+            
             for(int j = 0; j < runs; j++){
+                //random
                 int[] arraytest = generateArray(i);
                 long startTime = System.nanoTime();
-                QuickSort.quickSort(arraytest, pivot, partition);
+                QuickSort.quickSort(arraytest, 0, partition);
                 long endTime = System.nanoTime();
-                random += endTime - startTime;
+                random0 += endTime - startTime;
                 
+                startTime = System.nanoTime();
+                QuickSort.quickSort(arraytest, 1, partition);
+                endTime = System.nanoTime();
+                random1 += endTime - startTime;
+                
+                startTime = System.nanoTime();
+                QuickSort.quickSort(arraytest, 2, partition);
+                endTime = System.nanoTime();
+                random2 += endTime - startTime;
+                
+                //forward sorted
                 arraytest = generateForwardSorted(i);
                 startTime = System.nanoTime();
-                QuickSort.quickSort(arraytest, pivot, partition);
+                QuickSort.quickSort(arraytest, 0, partition);
                 endTime = System.nanoTime();
-                forward += endTime - startTime;
+                forward0 += endTime - startTime;
                 
+                startTime = System.nanoTime();
+                QuickSort.quickSort(arraytest, 1, partition);
+                endTime = System.nanoTime();
+                forward1 += endTime - startTime;
+                
+                startTime = System.nanoTime();
+                QuickSort.quickSort(arraytest, 2, partition);
+                endTime = System.nanoTime();
+                forward2 += endTime - startTime;
+                
+                //reverse sorted
                 arraytest = generateReverseSorted(i);
                 startTime = System.nanoTime();
-                QuickSort.quickSort(arraytest, pivot, partition);
+                QuickSort.quickSort(arraytest, 0, partition);
                 endTime = System.nanoTime();
-                reverse += endTime - startTime;
+                reverse0 += endTime - startTime;
+                
+                startTime = System.nanoTime();
+                QuickSort.quickSort(arraytest, 1, partition);
+                endTime = System.nanoTime();
+                reverse1 += endTime - startTime;
+                
+                startTime = System.nanoTime();
+                QuickSort.quickSort(arraytest, 2, partition);
+                endTime = System.nanoTime();
+                reverse2 += endTime - startTime;
             }
-            String[] set = {Long.toString(random/runs), Long.toString(forward/runs), Long.toString(reverse/runs)};
+            String[] set = {Long.toString(random0/runs), Long.toString(random1/runs), 
+                Long.toString(random2/runs), Long.toString(forward0/runs), 
+                Long.toString(forward1/runs), Long.toString(forward2/runs), 
+                Long.toString(reverse0/runs), Long.toString(reverse1/runs), 
+                Long.toString(reverse2/runs)};
             list.add(set);
         }
         try{
@@ -200,12 +244,12 @@ public class Graph {
     }
     
     //Creates csv file for quick sort and for pre-sorted data
-    public static void createCSV(ArrayList<String[]> list, int step, boolean sorted) throws IOException {
-            FileWriter writer = new FileWriter("data.csv");
+    private static void createCSV(ArrayList<String[]> list, int step, boolean sorted) throws IOException {
+            FileWriter writer = new FileWriter("data1.csv");
             BufferedWriter bw = new BufferedWriter(writer);
             for(int i = 1; i <= list.size(); i++){
                 String[] vals = list.get(i - 1);
-                bw.write(i*step + ", " + vals[0] + ", " + vals[1] + ", " + vals[2]);   
+                bw.write(i*step + ", " + vals[0] + ", " + vals[1] + ", " + vals[2] + ", " + vals[3] + ", " + vals[4] + ", " + vals[5] + ", " + vals[6] + ", " + vals[7] + ", " + vals[8]);   
                 bw.newLine();
             }
             bw.close();
@@ -232,7 +276,5 @@ public class Graph {
                 bw.newLine();
             }
             bw.close();
-    }
-    
-     
+    } 
 }
